@@ -1,0 +1,41 @@
+services:
+  db-postgres:
+    container_name: db-postgres
+    image: postgres:15.3-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - PGUSER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=fudy
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "fudy", "-U", "postgres"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+
+  fudy-test-task:
+    container_name: fudy-test-task
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - PORT=3000
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: production
+    depends_on:
+      db-postgres:
+        condition: service_healthy
+
+volumes:
+  db:
+    driver: local
