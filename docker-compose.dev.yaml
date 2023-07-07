@@ -37,8 +37,9 @@ services:
     environment:
       NODE_ENV: development
     depends_on:
-      db-mysql:
+      db-postgres:
         condition: service_healthy
 
 volumes:
-  mysql_data:
+  db:
+    driver: local
