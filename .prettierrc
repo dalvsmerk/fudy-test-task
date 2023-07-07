@@ -1,4 +1,12 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "importOrder": [
+    "@config/*",
+    "@libs/*",
+    "@modules/*",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]"
+  ],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"]
 }

@@ -29,6 +29,7 @@
 ## Installation
 
 ```bash
+$ cp .env.example .env
 $ npm install
 ```
 
@@ -43,6 +44,11 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+```
+
+### Docker Compose
+```bash
+$ docker compose up
 ```
 
 ## Test
