@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabasePool } from 'lib/database/database-pool';
+import { DuplicateKeyError } from 'lib/errors/duplicate-key.error';
 import { Nullable } from 'lib/types';
 import { UserModel } from '../domain/user.model';
 import { UserMapper } from '../user.mapper';
@@ -11,12 +12,18 @@ export class UserRepository {
   async create(user: UserModel): Promise<UserModel> {
     await user.validate();
 
-    const result = await this.pool.query(
-      'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *',
-      [user.email, user.password],
-    );
+    try {
+      const result = await this.pool.query(
+        'INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *',
+        [user.email, user.password],
+      );
 
-    return UserMapper.toDomain(result.rows[0]);
+      return UserMapper.toDomain(result.rows[0]);
+    } catch (error) {
+      if (error.message.includes('duplicate key value')) {
+        throw new DuplicateKeyError('email');
+      }
+    }
   }
 
   async findByEmail(email: string): Promise<Nullable<UserModel>> {

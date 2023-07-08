@@ -6,9 +6,9 @@ import { Pool } from 'pg';
 export class DatabasePool {
   constructor(configService: ConfigService) {
     this.pool = new Pool({
-      user: configService.get('database.user'),
+      user: configService.get('database.username'),
       host: configService.get('database.host'),
-      database: configService.get('database.database'),
+      database: configService.get('database.name'),
       password: configService.get('database.password'),
       port: configService.get('database.port'),
       max: configService.get('database.pool.max'),
