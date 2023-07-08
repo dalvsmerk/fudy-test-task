@@ -4,19 +4,17 @@ import { UserDto } from './dtos/user.dto';
 
 export class UserMapper {
   static toDomain(raw: UserPersistence): UserModel {
-    const user = UserModel.of({
+    return UserModel.of({
       id: raw.id,
       email: raw.email,
       password: raw.password,
     });
-    return user;
   }
 
   static toDto(user: UserModel): UserDto {
-    const raw = {
+    return {
       id: user.id,
       email: user.email,
     };
-    return raw;
   }
 }

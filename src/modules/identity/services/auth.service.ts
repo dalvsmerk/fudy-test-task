@@ -6,11 +6,7 @@ import { UserRepository } from '../database/user.repository';
 import { JwtTokenDto } from '../dtos/jwt-token.dto';
 import { PasswordsDontMatchError } from '../errors/passwords-dont-match.error';
 import { UserNotFoundError } from '../errors/user-not-found.error';
-
-type AccessTokenPayload = {
-  sub: string;
-  iss: string;
-};
+import { AccessTokenPayload } from '../types';
 
 @Injectable()
 export class AuthService {

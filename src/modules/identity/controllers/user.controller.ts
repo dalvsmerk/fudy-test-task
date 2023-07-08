@@ -5,7 +5,7 @@ import {
   InternalServerErrorException,
   Post,
 } from '@nestjs/common';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { ErrorDto } from 'lib/dtos/error.dto';
 import { DuplicateKeyError } from 'lib/errors/duplicate-key.error';
 import { ValidationError } from 'lib/errors/validation.error';
@@ -21,9 +21,10 @@ export class UserController {
   constructor(private readonly userRepo: UserRepository) {}
 
   @Post()
+  @ApiOperation({ summary: 'Register new user' })
   @ApiResponse({ status: 201, type: UserDto })
   @ApiResponse({ status: 400, type: ErrorDto })
-  async postUser(@Body() dto: CreateUserDto): Promise<UserDto> {
+  async createUser(@Body() dto: CreateUserDto): Promise<UserDto> {
     try {
       const userModel = UserModel.of({
         ...dto,
