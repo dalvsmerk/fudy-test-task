@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from 'lib/database/database.module';
 import configuration from './config/config';
 import configurationSchema from './config/config.schema';
-import { DatabasePool } from './lib/database/database-pool';
 import { IdentityModule } from './modules/identity/identity.module';
 
 @Module({
@@ -13,9 +13,10 @@ import { IdentityModule } from './modules/identity/identity.module';
       load: [configuration],
       validationSchema: configurationSchema(),
     }),
+    DatabaseModule,
     IdentityModule,
   ],
   controllers: [],
-  providers: [DatabasePool],
+  providers: [],
 })
 export class AppModule {}
