@@ -16,7 +16,6 @@ export class UserMapper {
     const raw = {
       id: user.id,
       email: user.email,
-      password: user.password,
     };
     return raw;
   }

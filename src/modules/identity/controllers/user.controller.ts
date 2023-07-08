@@ -9,6 +9,7 @@ import { ApiResponse } from '@nestjs/swagger';
 import { ErrorDto } from 'lib/dtos/error.dto';
 import { DuplicateKeyError } from 'lib/errors/duplicate-key.error';
 import { ValidationError } from 'lib/errors/validation.error';
+import { hashPassword } from 'lib/tools/passwords';
 import { UserRepository } from '../database/user.repository';
 import { UserModel } from '../domain/user.model';
 import { CreateUserDto } from '../dtos/create-user.dto';
@@ -24,7 +25,10 @@ export class UserController {
   @ApiResponse({ status: 400, type: ErrorDto })
   async postUser(@Body() dto: CreateUserDto): Promise<UserDto> {
     try {
-      const userModel = UserModel.of(dto);
+      const userModel = UserModel.of({
+        ...dto,
+        password: await hashPassword(dto.password),
+      });
       // No need for extra service layer since no business logic is involved
       const user = await this.userRepo.create(userModel);
 

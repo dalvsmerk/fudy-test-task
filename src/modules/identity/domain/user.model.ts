@@ -3,7 +3,6 @@ import {
   IsNotEmpty,
   IsNumber,
   IsOptional,
-  IsStrongPassword,
   MaxLength,
   MinLength,
 } from 'class-validator';
@@ -20,10 +19,9 @@ export class UserModel extends BaseModel {
   @MaxLength(320)
   readonly email: string;
 
-  @IsStrongPassword()
   @IsNotEmpty()
   @MinLength(6)
-  @MaxLength(255)
+  @MaxLength(256)
   readonly password: string;
 
   private constructor(props: Partial<UserModel>) {

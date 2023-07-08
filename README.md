@@ -78,8 +78,16 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
+## Features
+
+- API versioning (`/api/v1` prefix)
+- Layering
+- Prefering Repository pattern over ORM
+
 ## Limitations
 
 - Sequential ID must not be used for production due to [2013-A4-Insecure Direct Object References](https://wiki.owasp.org/index.php/Top_10_2013-A4-Insecure_Direct_Object_References) vulnerability. But no need to complicate things for this simple test task.
 - DB migrations probably won't be possible with current DB initialization method.
 - User controller doesn't use service layer and directly calls to Repository since no extra business logic must be implemented except model validation.
+- Refresh token is not included to the response of POST auth/login for simplicity.
+- Access token doesn't expire.

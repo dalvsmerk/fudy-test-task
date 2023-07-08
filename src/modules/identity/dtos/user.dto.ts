@@ -14,10 +14,4 @@ export class UserDto {
     example: 'hello@fudy.com',
   })
   email: string;
-
-  @ApiProperty({
-    description: 'User password',
-    example: '12345678',
-  })
-  password: string;
 }
