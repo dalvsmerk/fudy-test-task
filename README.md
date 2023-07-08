@@ -10,7 +10,7 @@ $ npm i
 ## Running the app
 
 ```bash
-$ docker compose up
+$ docker compose --env-file .env up
 ```
 
 The `postgres` image will execute the `db/init.sql` script that will create `users` table
@@ -18,7 +18,7 @@ The `postgres` image will execute the `db/init.sql` script that will create `use
 
 For dev (watch) mode use
 ```bash
-docker compose -f docker-compose.dev.yaml up
+$ docker compose -f docker-compose.dev.yaml --env-file .env up
 ```
 
 ## Test
